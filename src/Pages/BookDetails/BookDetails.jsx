@@ -1,7 +1,7 @@
-import React from 'react';
+
+import { useContext, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
-
-
+import { BookContext } from '../../Context/BookProvider';
 
 const BookDetails = () => {
 
@@ -10,16 +10,23 @@ const BookDetails = () => {
     const expectedBook = books.find((book) => book.bookId == id)
 
     const { image, bookName, author, review, totalPages, category, tags, publisher, yearOfPublishing } = expectedBook;
-    console.log(expectedBook);
+    // console.log(expectedBook);
+
+    const { storedBook, setStoredBook, handleMarkAsRead } = useContext(BookContext)
+
+    console.log(storedBook);
+
+
+
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  container mx-auto my-20">
 
             {/* image div */}
-            
-            <figure className='w-full flex items-center justify-center bg-base-200 rounded p-10'>
+
+            <figure className='w-full flex items-center justify-center bg-gray-100 rounded'>
                 <img
-                    src={image} className='[h-400px]'
+                    src={image} className='h-100'
                     alt="Album" />
             </figure>
 
@@ -59,7 +66,8 @@ const BookDetails = () => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <button className="btn btn-primary">Read</button>
+                        <button className="btn btn-primary" onClick={() => handleMarkAsRead(expectedBook)}>
+                            Mark as Read</button>
                         <button className="btn btn-primary">Wishlist</button>
                     </div>
                 </div>
