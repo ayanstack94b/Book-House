@@ -1,9 +1,10 @@
 import React from 'react';
 import { MdOutlineStarBorderPurple500 } from 'react-icons/md';
+import { Link } from 'react-router';
 
 const BookCard = ({ book }) => {
     return (
-        <div>
+        <Link to={`/bookDetails/${book.bookId}`}>
             <div className="card bg-base-100  shadow-sm">
                 <figure className='p-6'>
                     <img className=' rounded-xl h-50'
@@ -30,7 +31,7 @@ const BookCard = ({ book }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
