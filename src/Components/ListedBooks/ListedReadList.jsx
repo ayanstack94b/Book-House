@@ -2,8 +2,20 @@ import React, { useContext } from 'react';
 import { BookContext } from '../../Context/BookProvider';
 import BookCard from '../UI/BookCard';
 
-const ListedReadList = () => {
-      const { storedBook } = useContext(BookContext)
+const ListedReadList = ({ shortingType }) => {
+    const { storedBook } = useContext(BookContext)
+
+    const getFilteredList = () => {
+        if (shortingType === 'pages') {
+            return [...storedBook].sort((a, b) => a.totalPages - b.totalPages)
+        } else if (shortingType === 'rating') {
+            return [...storedBook].sort((a, b) => a.rating - b.rating)
+        }
+        return storedBook
+    }
+
+    const filteredReadList = getFilteredList()
+
 
     if (storedBook.length === 0) {
         return <div className="bg-base-100 h-[60vh] flex items-center justify-center px-4">
@@ -32,7 +44,7 @@ const ListedReadList = () => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 '>
             {
-                storedBook.map((book, i)=><BookCard key={i} book={book}></BookCard>)
+                filteredReadList.map((book, i) => <BookCard key={i} book={book}></BookCard>)
             }
         </div>
     );
